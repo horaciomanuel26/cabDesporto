@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>cabDesporto</title>
+</head>
+
+<body>
+    <!-- Menu para PC -->
+    <div class="menu_pc">
+        <div class="logo">
+            <h1>cabDesporto</h1>
+        </div>
+        <div class="links">
+            <a href="#inicio">Início</a>
+            <a href="#noticias">Notícias</a>
+            <a href="sobre.html">Sobre Nós</a>
+        </div>
+    </div>
+
+    <!-- Menu para Mobile -->
+    <div class="menu_mobile">
+        <div class="logo">
+            <h1>cabDesporto</h1>
+        </div>
+        <div class="amburguer">
+            <h1 onclick="abrir()">☰</h1>
+        </div>
+        <div class="lateral" id="menu_lateral">
+            <div class="links">
+                <div class="topo">
+                    <h4>Menu</h4>
+                    <h4 onclick="fechar()">✖</h4>
+                </div>
+                <a href="#inicio">Início</a>
+                <a href="#noticias">Notícias</a>
+                <a href="sobre.html">Sobre Nós</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner" id="inicio"></div>
+
+    <div class="noticias" id="noticias">
+        <h1 class="titulo-principal">Últimas Notícias</h1>
+        <div class="lista-noticias">
+            <div class="noticia" id="noticia">
+                <img src="/12.jpg" alt="Imagem da notícia" class="imagem-noticia">
+                <div class="conteudo-noticia">
+                    <h2 class="titulo-noticia">Título da Notícia</h2>
+                    <p class="texto-noticia">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam tenetur reiciendis quisquam alias
+                        odio exercitationem consectetur laudantium hic sunt, incidunt quas sit, voluptatem eaque ab
+                        minus! Blanditiis minima expedita fugit.
+                    </p>
+                    <div class="rodape">
+                        <p class="data-noticia">📅 12/12/2025</p>
+                        <a href="#" class="ler-mais">ler mais</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repita .noticia conforme necessário -->
+        </div>
+    </div>
+
+    <footer style="background: #0b2c68; color: white; padding: 40px 20px; margin-top: 60px;">
+        <div
+            style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+            <div style="flex: 1 1 300px;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Crie seu blog comigo!</h2>
+                <p style="font-size: 1rem; line-height: 1.6;">
+                    Você gostou deste blog? Posso criar um ainda melhor para o seu projeto ou negócio. Entre em contacto
+                    comigo agora e vamos conversar!
+                </p>
+            </div>
+            <div style="flex: 1 1 250px;">
+                <h3 style="margin-bottom: 10px;">📞 Meus Contatos</h3>
+                <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                    <li>📸 Instagram: <a href="https://instagram.com/manuell_designer" target="_blank"
+                            style="color: #00eaff;">@manuell_designer</a></li>
+                    <li>💬 WhatsApp: <a href="https://wa.me/244942347516" target="_blank" style="color: #00eaff;">942
+                            347 516</a></li>
+                    <li>💻 GitHub: <a href="https://github.com/horaciomanuel26" target="_blank"
+                            style="color: #00eaff;">horaciomanuel26</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.7;">
+            © 2025 Desenvolvido por Horácio Manuel | Todos os direitos reservados
+        </div>
+    </footer>
+
+
+    <script src="menu.js"></script>
+    <script src="api.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícia Completa</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .conteudo-principal {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .noticia-grande {
+            flex: 1 1 60%;
+        }
+
+        .sugestoes {
+            flex: 1 1 35%;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+
+        .sugestao {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .sugestao img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .sugestao h3 {
+            font-size: 1rem;
+            color: #1143a0;
+        }
+
+        @media (max-width: 768px) {
+            .conteudo-principal {
+                flex-direction: column;
+            }
+
+            .noticia-grande,
+            .sugestoes {
+                flex: 1 1 100%;
+            }
+
+            .sugestao {
+                gap: 10px;
+            }
+
+            .sugestao h3 {
+                font-size: 0.95rem;
+            }
+        }
+
+        .imagem-noticia2 {
+            width: 100%;
+            object-fit: cover;
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menu para PC -->
+    <div class="menu_pc">
+        <div class="logo">
+            <h1>cabDesporto</h1>
+        </div>
+        <div class="links">
+            <a href="index.html">Início</a>
+            <a href="noticia.html">Notícias</a>
+            <a href="sobre.html">Sobre Nós</a>
+        </div>
+    </div>
+
+    <!-- Menu para Mobile -->
+    <div class="menu_mobile">
+        <div class="logo">
+            <h1>cabDesporto</h1>
+        </div>
+        <div class="amburguer">
+            <h1 onclick="abrir()">☰</h1>
+        </div>
+        <div class="lateral" id="menu_lateral">
+            <div class="links">
+                <div class="topo">
+                    <h4>Menu</h4>
+                    <h4 onclick="fechar()">✖</h4>
+                </div>
+                <a href="index.html">Início</a>
+                <a href="noticia.html">Notícias</a>
+                <a href="sobre.html">Sobre Nós</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner"></div>
+
+    <div class="noticias">
+        <h1 class="titulo-principal">Notícia Completa</h1>
+        <div class="conteudo-principal">
+            <!-- Notícia à esquerda -->
+            <div id="noticia-completa" class="noticia-grande"></div>
+
+            <!-- Sugestões à direita -->
+            <div class="sugestoes" id="sugestoes">
+                <h2 style="margin-bottom: 15px; color:#003487;">Mais Notícias</h2>
+                <!-- Itens de sugestão serão inseridos aqui -->
+            </div>
+        </div>
+    </div>
+    <footer style="background: #0b2c68; color: white; padding: 40px 20px; margin-top: 60px;">
+        <div
+            style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+            <div style="flex: 1 1 300px;">
+                <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Crie seu blog comigo!</h2>
+                <p style="font-size: 1rem; line-height: 1.6;">
+                    Você gostou deste blog? Posso criar um ainda melhor para o seu projeto ou negócio. Entre em contacto
+                    comigo agora e vamos conversar!
+                </p>
+            </div>
+            <div style="flex: 1 1 250px;">
+                <h3 style="margin-bottom: 10px;">📞 Meus Contatos</h3>
+                <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                    <li>📸 Instagram: <a href="https://instagram.com/manuell_designer" target="_blank"
+                            style="color: #00eaff;">@manuell_designer</a></li>
+                    <li>💬 WhatsApp: <a href="https://wa.me/244942347516" target="_blank" style="color: #00eaff;">942
+                            347 516</a></li>
+                    <li>💻 GitHub: <a href="https://github.com/horaciomanuel26" target="_blank"
+                            style="color: #00eaff;">horaciomanuel26</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px; font-size: 0.9rem; opacity: 0.7;">
+            © 2025 Desenvolvido por Horácio Manuel | Todos os direitos reservados
+        </div>
+    </footer>
+
+    <script>
+        function abrir() {
+            document.getElementById('menu_lateral').classList.add('ativo');
+        }
+
+        function fechar() {
+            document.getElementById('menu_lateral').classList.remove('ativo');
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        async function carregarNoticia() {
+            const container = document.getElementById('noticia-completa');
+            const sugestoes = document.getElementById('sugestoes');
+
+            try {
+                const resp = await fetch('/dados.json');
+                const noticias = await resp.json();
+                const noticia = noticias.find(n => n.id == id);
+
+                if (!noticia) {
+                    container.innerHTML = '<p>❌ Notícia não encontrada.</p>';
+                    return;
+                }
+
+                container.innerHTML = `
+                    <img src="${noticia.imagem}" alt="${noticia.titulo}" class="imagem-noticia2">
+                    <div class="conteudo-noticia">
+                        <h2 class="titulo-noticia">${noticia.titulo}</h2>
+                        <p class="texto-noticia">${noticia.descricao}</p>
+                        <div class="rodape">
+                            <p class="data-noticia">📅 ${noticia.data}</p>
+                            <a href="index.html" class="ler-mais">← Voltar</a>
+                        </div>
+                    </div>
+                `;
+
+                // Mostrar sugestões, excluindo a atual
+                noticias.filter(n => n.id != id).slice(0, 4).forEach(n => {
+                    const sug = document.createElement('div');
+                    sug.className = 'sugestao';
+                    sug.innerHTML = `
+                        <img src="${n.imagem}" alt="Miniatura">
+                        <div>
+                            <a href="noticia.html?id=${n.id}"><h3>${n.titulo}</h3></a>
+                        </div>
+                    `;
+                    sugestoes.appendChild(sug);
+                });
+
+            } catch (error) {
+                container.innerHTML = '<p>❌ Erro ao carregar notícia.</p>';
+                console.error(error);
+            }
+        }
+
+        carregarNoticia();
+    </script>
+</body>
+
+</html>
