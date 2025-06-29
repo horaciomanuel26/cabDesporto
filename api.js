@@ -1,4 +1,4 @@
-const url = '/dados.json';
+const url = 'https://horaciomanuel26.github.io/_service/noticias/noticias_jogos.json';
 const containerNoticias = document.querySelector('.lista-noticias');
 
 async function carregar() {
