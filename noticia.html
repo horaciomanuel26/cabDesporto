@@ -160,6 +160,7 @@
             document.getElementById('menu_lateral').classList.remove('ativo');
         }
 
+        const baseImagem = 'https://horaciomanuel26.github.io/_service/noticias';
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
 
@@ -168,7 +169,7 @@
             const sugestoes = document.getElementById('sugestoes');
 
             try {
-                const resp = await fetch('/dados.json');
+                const resp = await fetch('https://horaciomanuel26.github.io/_service/noticias/noticias_jogos.json');
                 const noticias = await resp.json();
                 const noticia = noticias.find(n => n.id == id);
 
@@ -177,28 +178,36 @@
                     return;
                 }
 
+                const imagemPrincipal = noticia.imagem.startsWith('/')
+                    ? `${baseImagem}${noticia.imagem}`
+                    : noticia.imagem;
+
                 container.innerHTML = `
-                    <img src="${noticia.imagem}" alt="${noticia.titulo}" class="imagem-noticia2">
-                    <div class="conteudo-noticia">
-                        <h2 class="titulo-noticia">${noticia.titulo}</h2>
-                        <p class="texto-noticia">${noticia.descricao}</p>
-                        <div class="rodape">
-                            <p class="data-noticia">📅 ${noticia.data}</p>
-                            <a href="index.html" class="ler-mais">← Voltar</a>
-                        </div>
+                <img src="${imagemPrincipal}" alt="${noticia.titulo}" class="imagem-noticia2">
+                <div class="conteudo-noticia">
+                    <h2 class="titulo-noticia">${noticia.titulo}</h2>
+                    <p class="texto-noticia">${noticia.descricao}</p>
+                    <div class="rodape">
+                        <p class="data-noticia">📅 ${noticia.data}</p>
+                        <a href="index.html" class="ler-mais">← Voltar</a>
                     </div>
-                `;
+                </div>
+            `;
 
                 // Mostrar sugestões, excluindo a atual
                 noticias.filter(n => n.id != id).slice(0, 4).forEach(n => {
+                    const imagemSugestao = n.imagem.startsWith('/')
+                        ? `${baseImagem}${n.imagem}`
+                        : n.imagem;
+
                     const sug = document.createElement('div');
                     sug.className = 'sugestao';
                     sug.innerHTML = `
-                        <img src="${n.imagem}" alt="Miniatura">
-                        <div>
-                            <a href="noticia.html?id=${n.id}"><h3>${n.titulo}</h3></a>
-                        </div>
-                    `;
+                    <img src="${imagemSugestao}" alt="Miniatura">
+                    <div>
+                        <a href="noticia.html?id=${n.id}"><h3>${n.titulo}</h3></a>
+                    </div>
+                `;
                     sugestoes.appendChild(sug);
                 });
 
@@ -210,6 +219,7 @@
 
         carregarNoticia();
     </script>
+
 </body>
 
 </html>

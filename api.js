@@ -1,4 +1,5 @@
 const url = 'https://horaciomanuel26.github.io/_service/noticias/noticias_jogos.json';
+const baseImagem = 'https://horaciomanuel26.github.io/_service/noticias'; // base para imagens
 const containerNoticias = document.querySelector('.lista-noticias');
 
 async function carregar() {
@@ -10,9 +11,14 @@ async function carregar() {
         containerNoticias.innerHTML = '';
 
         dados.forEach(noticia => {
+            // Corrige o caminho da imagem, removendo a primeira barra se necessário
+            const caminhoImagem = noticia.imagem.startsWith('/')
+                ? `${baseImagem}${noticia.imagem}`
+                : noticia.imagem;
+
             const html = `
                 <div class="noticia">
-                    <img src="${noticia.imagem}" alt="Imagem da notícia" class="imagem-noticia">
+                    <img src="${caminhoImagem}" alt="Imagem da notícia" class="imagem-noticia">
                     <div class="conteudo-noticia">
                         <h2 class="titulo-noticia">${noticia.titulo}</h2>
                         <p class="texto-noticia">${noticia.descricao.substring(0, 150)}...</p>
